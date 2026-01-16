@@ -1,17 +1,7 @@
-import { createContext, useContext, useReducer } from "react";
-import { useState, useEffect } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
+
 //Step 1: Create Context
 const CartContext = createContext();
-
-// const initialCartContext = {
-//   cart: [],
-//   setCart: () => {},
-//   addToCart: () => {
-//     console.log("Product added to cart");
-//   },
-//   removeFromCart: () => {},
-//   totalQuantity: 0,
-// };
 
 const ADD_TO_CART = "ADD_TO_CART";
 const REMOVE_FROM_CART = "REMOVE_FROM_CART";
@@ -31,7 +21,7 @@ const cartReducer = (prevCart, action) => {
             : item
         );
       }
-      return [...state, { ...product, quantity }];
+      return [...prevCart, { ...product, quantity }];
     }
     case "REMOVE_FROM_CART": {
       return prevCart.filter(
@@ -55,50 +45,21 @@ const initialCartState = (() => {
     return [];
   }
 })();
-const [cart, dispatch] = useReducer(cartReducer, initialCartState);
 
 export { CartContext };
 export default CartContext;
+
 export const useCart = () => {
   return useContext(CartContext);
 };
+
 export const CartProvider = ({ children }) => {
-  //Initalize cart from localStorage as Empty Array if not present
-  //   const [cart, setCart] = useState(() => {
-  //     try {
-  //       const storedCart = localStorage.getItem("cart");
-  //       return storedCart ? JSON.parse(storedCart) : [];
-  //     } catch (error) {
-  //       console.error("Error parsing cart from localStorage:", error);
-  //       return [];
-  //     }
-  //   });
+  const [cart, dispatch] = useReducer(cartReducer, initialCartState);
+
   //Save cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
-
-  //   const addToCart = (product, quantity) => {
-  //     setCart((prevCart) => {
-  //       const existingItem = prevCart.find(
-  //         (item) => item.productId === product.productId
-  //       );
-  //       if (existingItem) {
-  //         return prevCart.map((item) =>
-  //           item.productId === product.productId
-  //             ? { ...item, quantity: item.quantity + quantity }
-  //             : item
-  //         );
-  //       }
-  //       return [...prevCart, { ...product, quantity }];
-  //     });
-  //   };
-
-  //   const removeFromCart = (productId) => {
-  //     setCart((prevCart) =>
-  //       prevCart.filter((item) => item.productId !== productId)
-  //     );
-  //   };
 
   const addToCart = (product, quantity) => {
     dispatch({ type: ADD_TO_CART, payload: { product, quantity } });

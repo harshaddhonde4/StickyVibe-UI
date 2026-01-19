@@ -9,32 +9,31 @@ import {
 } from "react-router-dom";
 import apiClient from "../api/apiClient";
 import { toast } from "react-toastify";
+import { useAuth } from "../store/Auth-Context";
 
 export default function Login() {
   const actionData = useActionData();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const navigate = useNavigate();
+  const { loginSuccess } = useAuth();
+  const from = sessionStorage.getItem("redirectPath") || "/home";
 
   useEffect(() => {
     if (actionData?.success) {
-      // Store JWT token and user info
-      localStorage.setItem("jwtToken", actionData.jwtToken);
-      localStorage.setItem("user", JSON.stringify(actionData.user));
-
+      loginSuccess(actionData.jwtToken, actionData.user);
       toast.success("Login successful!");
 
-      // Navigate only on success
       setTimeout(() => {
-        navigate("/home", { replace: true });
+        sessionStorage.removeItem("redirectPath");
+        navigate(from, { replace: true });
       }, 1000);
     } else if (actionData?.errors) {
-      // Stay on login page and show error
       toast.error(
         actionData.errors.message || "Login failed. Please try again."
       );
     }
-  }, [actionData, navigate]);
+  }, [actionData, navigate]); // Remove loginSuccess from dependencies
 
   const labelStyle =
     "block text-lg font-semibold text-primary dark:text-light mb-2";
@@ -122,15 +121,15 @@ export async function loginAction({ request }) {
     const { message, user, jwtToken } = response.data;
     return { success: true, message, user, jwtToken };
   } catch (error) {
-    // Return error object instead of throwing
+    // Fixed ternary logic
+    const errorMessage =
+      error.response?.status === 401
+        ? "Invalid username or password"
+        : error.response?.data?.message || "Failed to login. Please try again.";
+
     return {
       success: false,
-      errors: {
-        message:
-          error.response?.data?.message || error.response?.status === 401
-            ? "Invalid username or password"
-            : "Failed to login. Please try again.",
-      },
+      errors: { message: errorMessage },
     };
   }
 }

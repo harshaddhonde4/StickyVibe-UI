@@ -26,9 +26,12 @@ export default function Cart() {
                 Back to Products
               </Link>
               {/*Procees to checkout button can be added here*/}
-              <button className="py-2 px-6 bg-primary dark:bg-light text-white dark:text-black text-lg font-semibold rounded-md hover:bg-dark dark:hover:bg-lighter transition">
+              <Link
+                to="/checkout"
+                className="py-2 px-6 bg-primary dark:bg-light text-white dark:text-black text-lg font-semibold rounded-md hover:bg-dark dark:hover:bg-lighter transition"
+              >
                 Proceed to Checkout
-              </button>
+              </Link>
             </div>
           </>
         ) : (

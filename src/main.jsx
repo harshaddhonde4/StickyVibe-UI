@@ -22,6 +22,9 @@ import ProductDetail from "./components/ProductDetail.jsx";
 import CartContext from "./store/Cart-Context.jsx";
 import { CartProvider } from "./store/Cart-Context.jsx";
 import { loginAction } from "./components/Login.jsx";
+import { AuthProvider } from "./store/Auth-Context.jsx";
+import CheckoutForm from "./components/CheckoutForm.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 const routesDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -32,6 +35,9 @@ const routesDefinitions = createRoutesFromElements(
     <Route path="/login" element={<Login />} action={loginAction} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/products/:productId" element={<ProductDetail />} />
+    <Route element={<ProtectedRoute />}>
+      <Route path="/checkout" element={<CheckoutForm />} />
+    </Route>
   </Route>
 );
 
@@ -40,9 +46,11 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
   <StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </AuthProvider>
     <ToastContainer
       position="top-center"
       autoClose={3000}

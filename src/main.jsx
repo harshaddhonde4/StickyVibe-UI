@@ -25,6 +25,11 @@ import { loginAction } from "./components/Login.jsx";
 import { AuthProvider } from "./store/Auth-Context.jsx";
 import CheckoutForm from "./components/CheckoutForm.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Profile from "./components/Profile.jsx";
+import Orders from "./components/Orders.jsx";
+import AdminOrders from "./components/admin/Orders.jsx";
+import AdminMessages from "./components/admin/Messages.jsx";
+import Register from "./components/Register.jsx";
 
 const routesDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -35,8 +40,13 @@ const routesDefinitions = createRoutesFromElements(
     <Route path="/login" element={<Login />} action={loginAction} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/products/:productId" element={<ProductDetail />} />
+    <Route path="/register" element={<Register />} />
     <Route element={<ProtectedRoute />}>
       <Route path="/checkout" element={<CheckoutForm />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/orders" element={<Orders />} />
+      <Route path="/admin/orders" element={<AdminOrders />} />
+      <Route path="/admin/messages" element={<AdminMessages />} />
     </Route>
   </Route>
 );

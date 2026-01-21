@@ -198,7 +198,7 @@ export async function registerAction({ request }) {
   const registerData = {
     name: data.get("name"),
     email: data.get("email"),
-    mobileNumber: data.get("mobileNumber"),
+    phone: data.get("mobileNumber"),
     password: data.get("password"),
   };
   try {

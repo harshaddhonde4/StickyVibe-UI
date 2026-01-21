@@ -9,27 +9,23 @@ import {
   Route,
 } from "react-router-dom";
 import About from "./components/About.jsx";
-import Contact from "./components/Contact.jsx";
-import Login from "./components/Login.jsx";
+import Contact, { contactAction } from "./components/Contact.jsx";
+import Login, { loginAction } from "./components/Login.jsx";
+import Register, { registerAction } from "./components/Register.jsx";
 import Cart from "./components/Cart.jsx";
-import Home from "./components/Home.jsx";
-import ErrorPage from "./components/ErrorPage.jsx";
-import { productsLoader } from "./components/Home.jsx";
-import { contactAction } from "./components/Contact.jsx";
-import { ToastContainer, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ProductDetail from "./components/ProductDetail.jsx";
-import CartContext from "./store/Cart-Context.jsx";
-import { CartProvider } from "./store/Cart-Context.jsx";
-import { loginAction } from "./components/Login.jsx";
-import { AuthProvider } from "./store/Auth-Context.jsx";
-import CheckoutForm from "./components/CheckoutForm.jsx";
+import Home, { productsLoader } from "./components/Home.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ErrorPage from "./components/ErrorPage.jsx";
+import ProductDetail from "./components/ProductDetail.jsx";
+import CheckoutForm from "./components/CheckoutForm.jsx";
 import Profile from "./components/Profile.jsx";
 import Orders from "./components/Orders.jsx";
 import AdminOrders from "./components/admin/Orders.jsx";
 import AdminMessages from "./components/admin/Messages.jsx";
-import Register from "./components/Register.jsx";
+import { CartProvider } from "./store/Cart-Context.jsx";
+import { AuthProvider } from "./store/Auth-Context.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const routesDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -40,7 +36,7 @@ const routesDefinitions = createRoutesFromElements(
     <Route path="/login" element={<Login />} action={loginAction} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/products/:productId" element={<ProductDetail />} />
-    <Route path="/register" element={<Register />} />
+    <Route path="/register" element={<Register />} action={registerAction} />
     <Route element={<ProtectedRoute />}>
       <Route path="/checkout" element={<CheckoutForm />} />
       <Route path="/profile" element={<Profile />} />
@@ -59,20 +55,8 @@ root.render(
     <AuthProvider>
       <CartProvider>
         <RouterProvider router={router} />
+        <ToastContainer position="top-right" autoClose={3000} />
       </CartProvider>
     </AuthProvider>
-    <ToastContainer
-      position="top-center"
-      autoClose={3000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme={localStorage.getItem("theme") === "dark" ? "dark" : "light"}
-      transition={Bounce}
-    />
   </StrictMode>
 );

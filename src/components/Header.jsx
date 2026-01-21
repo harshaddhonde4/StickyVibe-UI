@@ -137,7 +137,8 @@ export default function Header() {
                     className="flex items-center gap-1"
                   >
                     <span className={navLinkClass}>
-                      Hello {user?.username || user?.name || "User"}
+                      Hello{" "}
+                      {user?.name || user?.fullName || user?.username || "User"}
                     </span>
                     <FontAwesomeIcon
                       icon={faAngleDown}

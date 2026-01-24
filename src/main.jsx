@@ -18,7 +18,10 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
 import ProductDetail from "./components/ProductDetail.jsx";
 import CheckoutForm from "./components/CheckoutForm.jsx";
-import Profile from "./components/Profile.jsx";
+import Profile, {
+  profileAction,
+  profileLoader,
+} from "./components/Profile.jsx";
 import Orders from "./components/Orders.jsx";
 import AdminOrders from "./components/admin/Orders.jsx";
 import AdminMessages from "./components/admin/Messages.jsx";
@@ -39,7 +42,12 @@ const routesDefinitions = createRoutesFromElements(
     <Route path="/register" element={<Register />} action={registerAction} />
     <Route element={<ProtectedRoute />}>
       <Route path="/checkout" element={<CheckoutForm />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route
+        path="/profile"
+        element={<Profile />}
+        action={profileAction}
+        loader={profileLoader}
+      />
       <Route path="/orders" element={<Orders />} />
       <Route path="/admin/orders" element={<AdminOrders />} />
       <Route path="/admin/messages" element={<AdminMessages />} />

@@ -27,7 +27,7 @@ export default function Login() {
       setTimeout(() => {
         sessionStorage.removeItem("redirectPath");
         navigate(from, { replace: true });
-      }, 1000);
+      }, 100);
     } else if (actionData?.errors) {
       toast.error(
         actionData.errors.message || "Login failed. Please try again."

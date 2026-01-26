@@ -29,8 +29,8 @@ export default function Header() {
   const { totalQuantity } = useCart();
   const { isAuthenticated, user, logout } = useAuth();
 
-  // Check if user is admin (adjust based on your backend response)
-  const isAdmin = user?.role === "ADMIN" || user?.isAdmin;
+  // Check if user has ROLE_ADMIN
+  const isAdmin = user?.roles?.includes("ROLE_ADMIN");
 
   useEffect(() => {
     if (theme === "dark") {

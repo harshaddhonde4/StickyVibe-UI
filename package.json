@@ -15,6 +15,8 @@
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.0",
+    "@stripe/react-stripe-js": "^5.5.0",
+    "@stripe/stripe-js": "^8.6.4",
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
     "js-cookie": "^3.0.5",

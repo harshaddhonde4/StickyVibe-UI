@@ -29,6 +29,13 @@ import { CartProvider } from "./store/Cart-Context.jsx";
 import { AuthProvider } from "./store/Auth-Context.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import OrderSuccess from "./components/OrderSuccess.jsx";
+
+const stripePromise = loadStripe(
+  "pk_test_51SuB1nDe3sMpfzz636FUqARcsrVvTz3IQzprirQhWFBzVpF26Ai7uA5KeGPGoShSIBBmAKVoYHNNV0hVEDiRN7ZG00gHG90mzs",
+);
 
 const routesDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -42,6 +49,7 @@ const routesDefinitions = createRoutesFromElements(
     <Route path="/register" element={<Register />} action={registerAction} />
     <Route element={<ProtectedRoute />}>
       <Route path="/checkout" element={<CheckoutForm />} />
+      <Route path="/order-success" element={<OrderSuccess />} />
       <Route
         path="/profile"
         element={<Profile />}
@@ -55,7 +63,7 @@ const routesDefinitions = createRoutesFromElements(
       <Route path="/admin/orders" element={<AdminOrders />} />
       <Route path="/admin/messages" element={<AdminMessages />} />
     </Route>
-  </Route>
+  </Route>,
 );
 
 const router = createBrowserRouter(routesDefinitions);
@@ -63,11 +71,13 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
   <StrictMode>
-    <AuthProvider>
-      <CartProvider>
-        <RouterProvider router={router} />
-        <ToastContainer position="top-right" autoClose={3000} />
-      </CartProvider>
-    </AuthProvider>
-  </StrictMode>
+    <Elements stripe={stripePromise}>
+      <AuthProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+          <ToastContainer position="top-right" autoClose={3000} />
+        </CartProvider>
+      </AuthProvider>
+    </Elements>
+  </StrictMode>,
 );

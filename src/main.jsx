@@ -26,7 +26,7 @@ import Orders, { ordersLoader } from "./components/Orders.jsx";
 import AdminOrders, {
   adminOrdersLoader,
 } from "./components/admin/AdminOrders.jsx";
-import AdminMessages from "./components/admin/Messages.jsx";
+import AdminMessages, { messagesLoader } from "./components/admin/Messages.jsx"; // Add messagesLoader here
 import { CartProvider } from "./store/Cart-Context.jsx";
 import { AuthProvider } from "./store/Auth-Context.jsx";
 import { ToastContainer } from "react-toastify";
@@ -67,7 +67,11 @@ const routesDefinitions = createRoutesFromElements(
         element={<AdminOrders />}
         loader={adminOrdersLoader}
       />
-      <Route path="/admin/messages" element={<AdminMessages />} />
+      <Route
+        path="/admin/messages"
+        element={<AdminMessages />}
+        loader={messagesLoader}
+      />
     </Route>
   </Route>,
 );

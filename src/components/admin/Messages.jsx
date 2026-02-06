@@ -23,13 +23,13 @@ export default function Messages() {
 
   return (
     <div className="min-h-[852px] container mx-auto px-6 py-12 font-primary dark:bg-darkbg">
+      <PageTitle title="Admin Contact Messages" />
       {messages.length === 0 ? (
-        <p className="text-center text-2xl text-primary dark:text-lighter">
+        <p className="text-center text-2xl text-primary dark:text-lighter mt-8">
           No open messages found.
         </p>
       ) : (
         <div className="overflow-x-auto">
-          <PageTitle title="Admin Contact Messages" />
           <table className="w-full mt-4 table-fixed border-collapse border border-gray-200 dark:border-gray-700">
             <thead>
               <tr className="bg-primary dark:bg-light text-lighter dark:text-primary">

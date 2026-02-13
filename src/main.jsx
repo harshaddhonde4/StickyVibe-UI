@@ -9,7 +9,10 @@ import {
   Route,
 } from "react-router-dom";
 import About from "./components/About.jsx";
-import Contact, { contactAction } from "./components/Contact.jsx";
+import Contact, {
+  contactAction,
+  contactLoader,
+} from "./components/Contact.jsx";
 import Login, { loginAction } from "./components/Login.jsx";
 import Register, { registerAction } from "./components/Register.jsx";
 import Cart from "./components/Cart.jsx";
@@ -27,24 +30,36 @@ import AdminOrders, {
   adminOrdersLoader,
 } from "./components/admin/AdminOrders.jsx";
 import AdminMessages, { messagesLoader } from "./components/admin/Messages.jsx"; // Add messagesLoader here
-import { CartProvider } from "./store/Cart-Context.jsx";
-import { AuthProvider } from "./store/Auth-Context.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import OrderSuccess from "./components/OrderSuccess.jsx";
+import { toast } from "react-toastify";
+import store from "./store/Store.js";
+import { Provider } from "react-redux";
 
 const stripePromise = loadStripe(
   "pk_test_51SuB1nDe3sMpfzz636FUqARcsrVvTz3IQzprirQhWFBzVpF26Ai7uA5KeGPGoShSIBBmAKVoYHNNV0hVEDiRN7ZG00gHG90mzs",
-);
+).catch((error) => {
+  console.error("Failed to load Stripe:", error);
+  toast.error(
+    "Payment system unavailable. Please check your internet connection.",
+  );
+  return null; // Return null so app doesn't crash
+});
 
 const routesDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
     <Route index element={<Home />} loader={productsLoader} />
     <Route path="/home" element={<Home />} loader={productsLoader} />
     <Route path="/about" element={<About />} />
-    <Route path="/contact" element={<Contact />} action={contactAction} />
+    <Route
+      path="/contact"
+      element={<Contact />}
+      action={contactAction}
+      loader={contactLoader}
+    />
     <Route path="/login" element={<Login />} action={loginAction} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/products/:productId" element={<ProductDetail />} />
@@ -81,13 +96,11 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
   <StrictMode>
-    <Elements stripe={stripePromise}>
-      <AuthProvider>
-        <CartProvider>
-          <RouterProvider router={router} />
-          <ToastContainer position="top-right" autoClose={3000} />
-        </CartProvider>
-      </AuthProvider>
-    </Elements>
+    <Provider store={store}>
+      <Elements stripe={stripePromise}>
+        <RouterProvider router={router} />
+        <ToastContainer position="top-right" autoClose={3000} />
+      </Elements>
+    </Provider>
   </StrictMode>,
 );

@@ -8,9 +8,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../store/Cart-Context";
-import { useAuth } from "../store/Auth-Context";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { selectTotalQuantity } from "../store/Cart-Slice";
+import { selectIsAuthenticated, selectUser, logout } from "../store/Auth-Slice";
 
 export default function Header() {
   const [theme, setTheme] = useState(() => {
@@ -26,8 +27,10 @@ export default function Header() {
   const toggleAdminMenu = () => setAdminMenuOpen((prev) => !prev);
   const toggleUserMenu = () => setUserMenuOpen((prev) => !prev);
 
-  const { totalQuantity } = useCart();
-  const { isAuthenticated, user, logout } = useAuth();
+  const totalQuantity = useSelector(selectTotalQuantity);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   // Check if user has ROLE_ADMIN
   const isAdmin = user?.roles?.includes("ROLE_ADMIN");
@@ -64,7 +67,7 @@ export default function Header() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    logout();
+    dispatch(logout());
     toast.success("Logged out successfully!");
     navigate("/home");
   };
@@ -226,7 +229,7 @@ export default function Header() {
                   className="text-primary dark:text-light w-6"
                 />
                 <div className="absolute -top-2 -right-6 text-xs bg-yellow-400 text-black font-semibold rounded-full px-2 py-1 leading-none">
-                  {totalQuantity}
+                  {useSelector(selectTotalQuantity)}
                 </div>
               </Link>
             </li>

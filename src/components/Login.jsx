@@ -9,19 +9,20 @@ import {
 } from "react-router-dom";
 import apiClient from "../api/apiClient";
 import { toast } from "react-toastify";
-import { useAuth } from "../store/Auth-Context";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../store/Auth-Slice";
 
 export default function Login() {
   const actionData = useActionData();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const navigate = useNavigate();
-  const { loginSuccess } = useAuth();
+  const dispatch = useDispatch();
   const from = sessionStorage.getItem("redirectPath") || "/home";
 
   useEffect(() => {
     if (actionData?.success) {
-      loginSuccess(actionData.jwtToken, actionData.user);
+      dispatch(loginSuccess({ jwtToken: actionData.jwtToken, user: actionData.user }));
       toast.success("Login successful!");
 
       setTimeout(() => {

@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import PageTitle from "./PageTitle";
 import { toast } from "react-toastify";
-import { useCart } from "../store/Cart-Context";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/Cart-Slice";
 
 function ProductDetail() {
   const params = useParams();
@@ -13,14 +14,14 @@ function ProductDetail() {
   const [isHovering, setIsHovering] = useState(false);
   const [backgroundPosition, setBackgroundPosition] = useState("center");
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
+  const dispatch = useDispatch();
 
   const handleAddToCart = () => {
     if (quantity < 1) {
       toast.error("Quantity must be at least 1");
       return;
     }
-    addToCart(product, quantity);
+    dispatch(addToCart({ product, quantity }));
     toast.success(`Added ${quantity} ${product.name} to cart!`);
   };
 
@@ -172,7 +173,7 @@ function ProductDetail() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button
-                onClick={handleAddToCart}
+                onClick={() => dispatch(addToCart({ product, quantity }))}
                 className="flex-1 py-3 px-6 bg-primary dark:bg-light text-white dark:text-black text-lg font-semibold rounded-md hover:bg-dark dark:hover:bg-lighter transition shadow-md"
               >
                 Add to Cart

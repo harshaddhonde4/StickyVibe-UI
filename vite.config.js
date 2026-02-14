@@ -6,14 +6,24 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
+    outDir: "dist",
+    sourcemap: false,
+    minify: "esbuild",
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            return "vendor";
-          }
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          redux: ["@reduxjs/toolkit", "react-redux"],
+          router: ["react-router-dom"],
+          ui: [
+            "@fortawesome/react-fontawesome",
+            "@fortawesome/fontawesome-svg-core",
+          ],
         },
       },
     },
   },
+  base: "/",
+  server: { port: 5173 },
+  preview: { port: 5173 },
 });

@@ -73,26 +73,26 @@ export default function Header() {
   };
 
   const navLinkClass =
-    "text-center text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter";
+    "text-center text-sm sm:text-base md:text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter";
 
   const dropdownLinkClass =
-    "block w-full text-left px-4 py-2 text-lg font-primary font-semibold text-primary dark:text-light hover:bg-gray-100 dark:hover:bg-gray-600";
+    "block w-full text-left px-4 py-2 text-base sm:text-lg font-primary font-semibold text-primary dark:text-light hover:bg-gray-100 dark:hover:bg-gray-600";
 
   return (
     <header className="border-b border-gray-300 dark:border-gray-600 sticky top-0 z-20 bg-normalbg dark:bg-darkbg">
-      <div className="flex items-center justify-between mx-auto max-w-[1152px] px-6 py-4">
+      <div className="flex items-center justify-between mx-auto max-w-[1152px] px-4 sm:px-6 py-3 sm:py-4">
         <Link to="/" className="flex items-center space-x-2">
           <FontAwesomeIcon
             icon={faTags}
-            className="h-8 w-8 text-primary dark:text-light"
+            className="h-6 sm:h-8 w-6 sm:w-8 text-primary dark:text-light"
           />
-          <span className="text-xl font-primary font-extrabold text-primary dark:text-light">
+          <span className="text-lg sm:text-xl font-primary font-extrabold text-primary dark:text-light">
             StickyVibe
           </span>
         </Link>
         <nav className="flex items-center py-2 z-10">
           <button
-            className="flex items-center justify-center mx-3 w-8 h-8 rounded-full border border-primary dark:border-light transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+            className="flex items-center justify-center mx-2 sm:mx-3 w-8 h-8 rounded-full border border-primary dark:border-light transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-600"
             aria-label="Toggle theme"
             onClick={toggleTheme}
           >
@@ -101,8 +101,8 @@ export default function Header() {
               className="w-4 h-4 dark:text-light text-primary"
             />
           </button>
-          <ul className="flex items-center space-x-6">
-            <li>
+          <ul className="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
+            <li className="hidden md:block">
               <NavLink
                 to="/home"
                 className={({ isActive }) =>
@@ -112,7 +112,7 @@ export default function Header() {
                 Home
               </NavLink>
             </li>
-            <li>
+            <li className="hidden md:block">
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
@@ -122,7 +122,7 @@ export default function Header() {
                 About
               </NavLink>
             </li>
-            <li>
+            <li className="hidden sm:block">
               <NavLink
                 to="/contact"
                 className={({ isActive }) =>
@@ -148,11 +148,11 @@ export default function Header() {
                     </span>
                     <FontAwesomeIcon
                       icon={faAngleDown}
-                      className="text-primary dark:text-light w-4 h-4"
+                      className="text-primary dark:text-light w-3 sm:w-4 h-3 sm:h-4"
                     />
                   </button>
                   {isUserMenuOpen && (
-                    <div className="absolute right-0 w-48 bg-normalbg dark:bg-darkbg border border-gray-300 dark:border-gray-600 rounded-md shadow-lg z-20 transition ease-in-out duration-200">
+                    <div className="absolute right-0 w-40 sm:w-48 bg-normalbg dark:bg-darkbg border border-gray-300 dark:border-gray-600 rounded-md shadow-lg z-20 transition ease-in-out duration-200">
                       <ul className="py-2">
                         <li>
                           <Link to="/profile" className={dropdownLinkClass}>
@@ -226,9 +226,9 @@ export default function Header() {
               <Link to="/cart" className="relative text-primary py-2">
                 <FontAwesomeIcon
                   icon={faShoppingCart}
-                  className="text-primary dark:text-light w-6"
+                  className="text-primary dark:text-light w-5 sm:w-6"
                 />
-                <div className="absolute -top-2 -right-6 text-xs bg-yellow-400 text-black font-semibold rounded-full px-2 py-1 leading-none">
+                <div className="absolute -top-2 -right-5 sm:-right-6 text-xs bg-yellow-400 text-black font-semibold rounded-full px-1.5 sm:px-2 py-0.5 sm:py-1 leading-none">
                   {useSelector(selectTotalQuantity)}
                 </div>
               </Link>

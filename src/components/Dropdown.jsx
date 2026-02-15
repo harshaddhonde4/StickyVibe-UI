@@ -7,7 +7,7 @@ export default function Dropdown({
   handleSort,
 }) {
   return (
-    <div className="flex items-center gap-2 justify-end pr-12 flex-1 font-primary">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:pr-12 sm:justify-end">
       <label className="text-lg font-semibold text-primary dark:text-light">
         {label}
       </label>

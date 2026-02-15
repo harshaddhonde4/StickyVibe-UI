@@ -17,21 +17,22 @@ apiClient.interceptors.request.use(
     if (jwtToken) {
       config.headers.Authorization = `Bearer ${jwtToken}`;
     }
+    // Disabled the csrf token fetching logic for now since Spring Security's default CSRF protection is disabled for APIs. If we enable it in the future, we can re-enable this logic.
     // Only fetch CSRF token for non-safe methods
-    const safeMethods = ["GET", "HEAD", "OPTIONS"];
-    if (!safeMethods.includes(config.method.toUpperCase())) {
-      let csrfToken = Cookies.get("XSRF-TOKEN");
-      if (!csrfToken) {
-        await axios.get(`${import.meta.env.VITE_API_BASE_URL}/csrf-token`, {
-          withCredentials: true,
-        });
-        csrfToken = Cookies.get("XSRF-TOKEN");
-        if (!csrfToken) {
-          throw new Error("Failed to retrieve CSRF token from cookies");
-        }
-      }
-      config.headers["X-XSRF-TOKEN"] = csrfToken;
-    }
+    // const safeMethods = ["GET", "HEAD", "OPTIONS"];
+    // if (!safeMethods.includes(config.method.toUpperCase())) {
+    //   let csrfToken = Cookies.get("XSRF-TOKEN");
+    //   if (!csrfToken) {
+    //     await axios.get(`${import.meta.env.VITE_API_BASE_URL}/csrf-token`, {
+    //       withCredentials: true,
+    //     });
+    //     csrfToken = Cookies.get("XSRF-TOKEN");
+    //     if (!csrfToken) {
+    //       throw new Error("Failed to retrieve CSRF token from cookies");
+    //     }
+    //   }
+    //   config.headers["X-XSRF-TOKEN"] = csrfToken;
+    // }
 
     return config;
   },

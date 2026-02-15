@@ -246,12 +246,15 @@ export default function Contact() {
                     name="mobileNumber"
                     type="tel"
                     required
-                    pattern="^\d{10}$"
-                    title="Mobile number must be exactly 10 digits"
-                    placeholder="1234567890"
+                    placeholder="1234567890 or (123) 456-7890"
                     className={inputStyle}
                     autoComplete="tel"
+                    minLength={10}
+                    maxLength={15}
                   />
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Enter 10-digit mobile number (spaces/dashes allowed)
+                  </p>
                   {actionData?.errors?.mobileNumber && (
                     <p className={errorStyle}>
                       <span>⚠️</span> {actionData.errors.mobileNumber}
@@ -398,17 +401,41 @@ export default function Contact() {
 export async function contactAction({ request }) {
   const data = await request.formData();
 
+  // Get form data
+  const rawPhone = data.get("mobileNumber") || "";
+
+  // Clean phone number: remove all non-digits and take last 10 digits
+  const cleanPhone = rawPhone.replace(/\D/g, "").slice(-10);
+
+  // Validate phone number length
+  if (cleanPhone.length !== 10) {
+    return {
+      success: false,
+      errors: {
+        mobileNumber: "Mobile number must be exactly 10 digits",
+      },
+    };
+  }
+
   const contactData = {
     name: data.get("name"),
     email: data.get("email"),
-    mobileNumber: data.get("mobileNumber"),
+    phone: cleanPhone, // Send cleaned phone number
     message: data.get("message"),
   };
 
   try {
-    await apiClient.post("/contacts", contactData);
+    console.log("Submitting contact data:", contactData);
+    const response = await apiClient.post("/contacts", contactData);
+    console.log("Contact submission successful:", response.data);
     return { success: true };
   } catch (error) {
+    console.error("Contact submission error:", {
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message,
+    });
+
     if (error.response?.status === 400) {
       return { success: false, errors: error.response?.data };
     }
@@ -422,6 +449,7 @@ export async function contactAction({ request }) {
       success: false,
       error:
         error.response?.data?.errorMessage ||
+        error.response?.data?.message ||
         error.message ||
         "Failed to submit your message. Please try again.",
     };
@@ -430,10 +458,16 @@ export async function contactAction({ request }) {
 
 export async function contactLoader() {
   try {
+    console.log("Loading contact info from API...");
     const response = await apiClient.get("/contacts");
+    console.log("Contact info loaded successfully:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Failed to load contact info:", error);
+    console.error("Failed to load contact info:", {
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      message: error.message,
+    });
     // Return fallback data
     return {
       phone: "+1 (555) 123-4567",

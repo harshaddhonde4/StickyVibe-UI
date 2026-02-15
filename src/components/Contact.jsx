@@ -425,17 +425,9 @@ export async function contactAction({ request }) {
   };
 
   try {
-    console.log("Submitting contact data:", contactData);
     const response = await apiClient.post("/contacts", contactData);
-    console.log("Contact submission successful:", response.data);
     return { success: true };
   } catch (error) {
-    console.error("Contact submission error:", {
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
-
     if (error.response?.status === 400) {
       return { success: false, errors: error.response?.data };
     }
@@ -458,17 +450,10 @@ export async function contactAction({ request }) {
 
 export async function contactLoader() {
   try {
-    console.log("Loading contact info from API...");
     const response = await apiClient.get("/contacts");
-    console.log("Contact info loaded successfully:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Failed to load contact info:", {
-      status: error.response?.status,
-      statusText: error.response?.statusText,
-      message: error.message,
-    });
-    // Return fallback data
+    // Silently return fallback data on error
     return {
       phone: "+1 (555) 123-4567",
       email: "support@eazystore.com",

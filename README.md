@@ -144,11 +144,11 @@ npm run preview
 
 ## 🔑 Environment Modes
 
-| Mode           | Command                  | API Target      |
-| -------------- | ------------------------ | --------------- |
-| **Local**      | `npm run dev`            | localhost:8080   |
-| **Dev Build**  | `npm run build:dev`      | Dev API server   |
-| **Production** | `npm run build`          | CloudFront CDN   |
+| Mode           | Command             | API Target     |
+| -------------- | ------------------- | -------------- |
+| **Local**      | `npm run dev`       | localhost:8080 |
+| **Dev Build**  | `npm run build:dev` | Dev API server |
+| **Production** | `npm run build`     | CloudFront CDN |
 
 ---
 

@@ -1,20 +1,164 @@
-# React + Vite
+# 🎨 StickyVibe UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive e-commerce frontend for **StickyVibe** — a sticker store built with React, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+> Add a touch of creativity to your space with fun and unique stickers!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Demo
 
-## React Compiler
+**Frontend:** Deployed on [AWS Amplify](https://main.d3u0qv6dwhg83o.amplifyapp.com)  
+**Backend API:** Served via [AWS CloudFront](https://d1dz15aly7dp8q.cloudfront.net/api/v1)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-# If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🛒 **Product Browsing** — Search, sort, and explore stickers
+- 📦 **Cart Management** — Add/remove items with Redux state management
+- 💳 **Stripe Checkout** — Secure payment integration
+- 👤 **User Authentication** — JWT-based login & registration
+- 📋 **Order Tracking** — View order history
+- 👨‍💼 **Admin Panel** — Manage orders and customer messages
+- 📬 **Contact Form** — Submit inquiries with server-side validation
+- 🌗 **Dark Mode** — Toggle between light and dark themes
+- 📱 **Responsive Design** — Mobile-friendly across all pages
+- 🔒 **Protected Routes** — Auth-guarded pages for logged-in users
 
-# StickyVibe-UI
+---
 
-# Frontend of the E-Commerce Application named StickyVibe
+## 🛠️ Tech Stack
+
+| Category        | Technology                                            |
+| --------------- | ----------------------------------------------------- |
+| **Framework**   | React 19                                              |
+| **Build Tool**  | Vite 7                                                |
+| **Styling**     | Tailwind CSS 4                                        |
+| **Routing**     | React Router DOM 7 (Loaders & Actions)                |
+| **State**       | Redux Toolkit + React Redux                           |
+| **HTTP Client** | Axios                                                 |
+| **Payments**    | Stripe (React Stripe.js)                              |
+| **Icons**       | FontAwesome + React Icons                             |
+| **Toasts**      | React Toastify                                        |
+| **Deployment**  | AWS Amplify (Frontend) + CloudFront/EC2 (Backend API) |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── api/
+│   └── apiClient.js          # Axios instance with interceptors
+├── assets/
+│   └── util/
+├── components/
+│   ├── Header.jsx             # Responsive navigation bar
+│   ├── Home.jsx               # Product listing page
+│   ├── ProductListings.jsx    # Search, sort & product grid
+│   ├── ProductCard.jsx        # Individual product card
+│   ├── ProductDetail.jsx      # Product detail view
+│   ├── Cart.jsx               # Shopping cart page
+│   ├── CartTable.jsx          # Cart items table
+│   ├── CheckoutForm.jsx       # Stripe payment form
+│   ├── OrderSuccess.jsx       # Order confirmation
+│   ├── Orders.jsx             # User order history
+│   ├── Contact.jsx            # Contact form with validation
+│   ├── About.jsx              # About page
+│   ├── Login.jsx              # Login form
+│   ├── Register.jsx           # Registration form
+│   ├── Profile.jsx            # User profile management
+│   ├── ProtectedRoute.jsx     # Auth route guard
+│   ├── ErrorPage.jsx          # Error boundary page
+│   ├── SearchBox.jsx          # Product search input
+│   ├── Dropdown.jsx           # Sort dropdown
+│   ├── Price.jsx              # Price display component
+│   ├── PageTitle.jsx          # Page title component
+│   ├── PageHeading.jsx        # Page heading component
+│   ├── admin/
+│   │   ├── AdminOrders.jsx    # Admin order management
+│   │   └── Messages.jsx       # Admin contact messages
+│   └── footer/
+│       └── Footer.jsx         # Site footer
+├── store/
+│   ├── Store.js               # Redux store configuration
+│   ├── Auth-Slice.js          # Authentication state
+│   ├── Auth-Context.jsx       # Auth context (legacy)
+│   ├── Cart-Slice.js          # Cart state management
+│   └── Cart-Context.jsx       # Cart context (legacy)
+├── App.jsx                    # Root layout with Outlet
+├── main.jsx                   # Router & provider setup
+├── App.css
+└── index.css                  # Tailwind directives & custom theme
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** >= 18
+- **npm** >= 9
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/harshaddhonde4/StickyVibe-UI.git
+cd StickyVibe-UI
+
+# Install dependencies
+npm install
+```
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_API_BASE_URL="https://localhost:8080/api/v1"
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+App runs at [http://localhost:5173](http://localhost:5173)
+
+### Build
+
+```bash
+# Production build
+npm run build
+
+# Dev environment build
+npm run build:dev
+
+# Preview production build locally
+npm run preview
+```
+
+---
+
+## 🔑 Environment Modes
+
+| Mode           | Command                  | API Target      |
+| -------------- | ------------------------ | --------------- |
+| **Local**      | `npm run dev`            | localhost:8080   |
+| **Dev Build**  | `npm run build:dev`      | Dev API server   |
+| **Production** | `npm run build`          | CloudFront CDN   |
+
+---
+
+## 👤 Author
+
+**Harshad Dhonde**  
+GitHub: [@harshaddhonde4](https://github.com/harshaddhonde4)
+
+---
+
+## 📄 License
+
+This project is private and not licensed for public distribution.

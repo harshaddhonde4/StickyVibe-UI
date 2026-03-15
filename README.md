@@ -1,28 +1,47 @@
 # 🎨 StickyVibe UI
 
+<div align="center">
+
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Redux](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white)](https://redux-toolkit.js.org/)
+[![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
+[![AWS](https://img.shields.io/badge/AWS_Amplify-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/amplify/)
+
 A modern, responsive e-commerce frontend for **StickyVibe** — a sticker store built with React, Vite, and Tailwind CSS.
 
-> Add a touch of creativity to your space with fun and unique stickers!
+> ✨ Add a touch of creativity to your space with fun and unique stickers!
+
+**[🌐 Live Demo](https://main.d3u0qv6dwhg83o.amplifyapp.com)**
+
+</div>
+
+---
 
 ## 🌐 Live Demo
 
-**Frontend:** Deployed on [AWS Amplify](https://main.d3u0qv6dwhg83o.amplifyapp.com)  
-**Backend API:** Served via [AWS CloudFront](https://d1dz15aly7dp8q.cloudfront.net/api/v1)
+| Service        | URL                                                                                              |
+| -------------- | ------------------------------------------------------------------------------------------------ |
+| **Frontend**   | [AWS Amplify](https://main.d3u0qv6dwhg83o.amplifyapp.com)                                       |
+| **Backend API**| [AWS CloudFront](https://d1dz15aly7dp8q.cloudfront.net/api/v1)                                  |
 
 ---
 
 ## ✨ Features
 
-- 🛒 **Product Browsing** — Search, sort, and explore stickers
-- 📦 **Cart Management** — Add/remove items with Redux state management
-- 💳 **Stripe Checkout** — Secure payment integration
-- 👤 **User Authentication** — JWT-based login & registration
-- 📋 **Order Tracking** — View order history
-- 👨‍💼 **Admin Panel** — Manage orders and customer messages
-- 📬 **Contact Form** — Submit inquiries with server-side validation
-- 🌗 **Dark Mode** — Toggle between light and dark themes
-- 📱 **Responsive Design** — Mobile-friendly across all pages
-- 🔒 **Protected Routes** — Auth-guarded pages for logged-in users
+| Feature | Description |
+| ------- | ----------- |
+| 🛒 **Product Browsing** | Search, sort, and explore stickers with a smooth UX |
+| 📦 **Cart Management** | Add/remove items with Redux state management |
+| 💳 **Stripe Checkout** | Secure, PCI-compliant payment integration |
+| 👤 **User Authentication** | JWT-based login & registration with protected routes |
+| 📋 **Order Tracking** | View full order history per user |
+| 👨‍💼 **Admin Panel** | Manage orders and customer support messages |
+| 📬 **Contact Form** | Submit inquiries with server-side validation |
+| 🌗 **Dark Mode** | Toggle between light and dark themes |
+| 📱 **Responsive Design** | Mobile-friendly layout across all pages |
+| 🔒 **Protected Routes** | Auth-guarded pages for logged-in users only |
 
 ---
 
@@ -152,10 +171,27 @@ npm run preview
 
 ---
 
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!
+
+1. **Fork** the repository
+2. **Create** your feature branch: `git checkout -b feature/amazing-feature`
+3. **Commit** your changes: `git commit -m 'Add some amazing feature'`
+4. **Push** to the branch: `git push origin feature/amazing-feature`
+5. **Open** a Pull Request
+
+---
+
 ## 👤 Author
 
-**Harshad Dhonde**  
-GitHub: [@harshaddhonde4](https://github.com/harshaddhonde4)
+<div align="center">
+
+**Harshad Dhonde**
+
+[![GitHub](https://img.shields.io/badge/GitHub-harshaddhonde4-181717?style=for-the-badge&logo=github)](https://github.com/harshaddhonde4)
+
+</div>
 
 ---
 
